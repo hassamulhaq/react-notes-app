@@ -18,10 +18,12 @@ function Homepage() {
                             <Split
                                 sizes={[30, 70]}
                                 direction="horizontal"
+                                gutterSize={12}
+                                minSize={200}
                                 className="split"
                             >
                                 <Sidebar />
-                                <Editor />
+                                <div></div>
                             </Split>
                         </div>
                     </div>

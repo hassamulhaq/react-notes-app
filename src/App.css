@@ -32,16 +32,6 @@ button:focus {
     /* display: flex; */
 }
 
-.sidebar--header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-.sidebar--header > h3 {
-    font-size: 1.75rem;
-}
-
 .new-note {
     cursor: pointer;
     background-color: #4A4E74;
