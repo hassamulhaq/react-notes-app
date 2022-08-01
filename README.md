@@ -19,5 +19,4 @@ ___
 - showdown    (preview markdown)
 
 
-![](public/images/react-note-app__preview01.gif)
-![](public/images/react-note-app__preview02.gif)
+![](public/images/preview_gif.gif)
