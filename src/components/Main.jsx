@@ -4,10 +4,9 @@ import Header from "./Header";
 import Split from "react-split";
 import Sidebar from "./Sidebar";
 import Editor from "./Editor.jsx";
-import {data} from "../../datajson.js";
 import {nanoid} from "nanoid";
 
-function Homepage() {
+function Main() {
 
     const [notes, setNotes] = useState([])
 
@@ -18,16 +17,16 @@ function Homepage() {
     function createNewNote() {
         const newNote = {
             id: nanoid(),
-            body: "# Type your markdown note's title here"
+            body: "### Type your markdown. Use @ to autofill."
         }
-        setNotes(prevState => [...newNote, ...prevState])
+        setNotes(prevState => [newNote, ...prevState])
 
         // set for Editor
         setCurrentNoteId(newNote.id)
     }
 
     function updateNote(text) {
-        setNotes(oldNotes => oldNotes.map(oldNote => {
+        setNotes(prevState => prevState.map(oldNote => {
             return oldNote.id === currentNoteId
                 ? { ...oldNote, body: text }
                 : oldNote
@@ -61,12 +60,13 @@ function Homepage() {
                                         >
                                             <Sidebar
                                                 notes={notes}
-                                                newNote={createNewNote}/>
+                                                currentNote={findCurrentNote()}
+                                                setCurrentNoteId={setCurrentNoteId}
+                                                newNote={createNewNote}
+                                            />
                                             {
-                                                currentNoteId
-                                                &&
-                                                notes.length > 0
-                                                &&
+                                                currentNoteId &&
+                                                notes.length > 0 &&
                                                 <Editor
                                                     currentNote={findCurrentNote()}
                                                     updateNote={updateNote}
@@ -79,7 +79,7 @@ function Homepage() {
                         </main>
                     </div>
                     :
-                    <div className="flex flex-col justify-center items-center h-screen overflow-scroll">
+                    <div className="flex flex-col justify-center items-center h-screen overflow-scroll bg-indigo-100">
                         <h1 className="text-2xl mb-3">You have no notes</h1>
                         <button
                             className="bg-indigo-500 rounded text-amber-50 hover:bg-indigo-700 px-6 py-2 cursor-pointer"
@@ -87,10 +87,11 @@ function Homepage() {
                         >
                             Create one now
                         </button>
+                        <small className="text-transparent mt-3 select-none">@hassamulhaq</small>
                     </div>
             }
         </Fragment>
     )
 }
 
-export default Homepage
+export default Main

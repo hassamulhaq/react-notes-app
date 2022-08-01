@@ -2,17 +2,12 @@ import React, {useState} from "react"
 
 export default function Sidebar(props) {
 
-    console.log(props)
-
     const notesElements = props.notes.map((note, index) => (
-            <li key={note.id} id={note.id} className="
-                    px-4
-                    py-2
-                    bg-neutral-100
-                    hover:bg-blue-400
-                    hover:text-amber-50
-                    cursor-pointer"
-                onClick={() => console.log(note.body)}
+            <li key={note.id} id={note.id} className={`
+                px-4 py-2 bg-neutral-100 hover:bg-indigo-400 hover:text-amber-50 cursor-pointer
+                ${ note.id === props.currentNote.id ? 'bg-indigo-500 text-amber-50' : ''}
+            `}
+                onClick={() => props.setCurrentNoteId(note.id)} // show markdown of selected note-id
             >
                 Note {index + 1}
             </li>
@@ -29,9 +24,9 @@ export default function Sidebar(props) {
                 text-2xl
                 rounded
                 font-bold
-                bg-blue-500
+                bg-indigo-500
                 text-amber-50
-                hover:bg-blue-600"
+                hover:bg-indigo-700"
                         onClick={props.newNote}>
                     +
                 </button>

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import ReactMde from "react-mde";
-import * as Showdown from "showdown";
+import Showdown from "showdown";
 import "react-mde/lib/styles/css/react-mde-all.css";
 
 function loadSuggestions(text) {
@@ -9,7 +9,11 @@ function loadSuggestions(text) {
             const suggestions = [
                 {
                     preview: "Hassam",
-                    value: "@hassam"
+                    value: "@devhassam"
+                },
+                {
+                    preview: "React App",
+                    value: "@reactapp"
                 },
                 {
                     preview: "Laravel Developer",
@@ -28,35 +32,10 @@ const converter = new Showdown.Converter({
     tasklists: true,
 })
 
-function Editor(props) {
+export default function Editor(props) {
 
-    //const [value, setValue] = useState("**Hello world!!!**");
-    //const [selectedTab, setSelectedTab] = useState < "write" | "preview" > ("write");
-
-    const [value, setValue] = React.useState("**Hello world!!!**");
+    //const [selectedTab, setSelectedTab] = useState ("write" | "preview");
     const [selectedTab, setSelectedTab] = React.useState("write");
-
-
-
-    const save = async function* (data) {
-        // Promise that waits for "time" milliseconds
-
-        console.log(value)
-
-        const wait = function (time) {
-            return new Promise((a, r) => {
-                setTimeout(() => a(), time);
-            });
-        };
-
-        await wait(2000);
-        // yields the URL that should be inserted in the markdown
-        yield "https://picsum.photos/300";
-        await wait(2000);
-
-        // returns true meaning that the save was successful
-        return true;
-    };
 
     return (
         <section className="container pane editor">
@@ -68,20 +47,17 @@ function Editor(props) {
                 generateMarkdownPreview={(markdown) =>
                     Promise.resolve(converter.makeHtml(markdown))
                 }
+                minEditorHeight={20}
+                heightUnits="rem"
                 loadSuggestions={loadSuggestions}
                 childProps={{
                     writeButton: {
                         tabIndex: -1
                     }
                 }}
-                paste={{
-                    saveImage: save
-                }}
             />
         </section>
     )
 
 }
-
-export default Editor
 
