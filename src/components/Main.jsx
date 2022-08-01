@@ -14,9 +14,13 @@ function Main() {
         notes[0] && notes[0].id || ''
     )
 
+    const [indexer, setIndexer] = useState(1)
+
     function createNewNote() {
+        setIndexer(prevState => prevState + 1)
         const newNote = {
             id: nanoid(),
+            indexer: indexer,
             body: "### Type your markdown. Use @ to autofill."
         }
         setNotes(prevState => [newNote, ...prevState])
@@ -59,6 +63,7 @@ function Main() {
                                             className="split"
                                         >
                                             <Sidebar
+                                                indexer={indexer}
                                                 notes={notes}
                                                 currentNote={findCurrentNote()}
                                                 setCurrentNoteId={setCurrentNoteId}

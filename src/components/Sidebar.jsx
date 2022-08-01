@@ -9,7 +9,7 @@ export default function Sidebar(props) {
             `}
                 onClick={() => props.setCurrentNoteId(note.id)} // show markdown of selected note-id
             >
-                Note {index + 1}
+                Note {note.indexer}
             </li>
     ))
 
@@ -32,11 +32,9 @@ export default function Sidebar(props) {
                 </button>
             </div>
             <hr className="my-1"/>
-            <div className="">
-                <ul className="">
-                    {notesElements}
-                </ul>
-            </div>
+            <ul className="block">
+                {notesElements}
+            </ul>
         </section>
     )
 }
