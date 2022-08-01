@@ -63,7 +63,6 @@ function Main() {
                                             className="split"
                                         >
                                             <Sidebar
-                                                indexer={indexer}
                                                 notes={notes}
                                                 currentNote={findCurrentNote()}
                                                 setCurrentNoteId={setCurrentNoteId}
