@@ -1,12 +1,23 @@
-# React Notes App
+### React Notes App
+___
+___
+___
 
 
-### Stacks
-- reactjs
-- tailwindcss
 
-### Frontend Tooling
-- vitejs
+#### Frontend Tooling
+- Vitejs ^3.0.0
+
+#### Stacks
+- Reactjs ^18.2.0
+- Tailwind CSS ^3.1.7
+
+#### Dependencies
+- nanoid      (to generate URL friendly unique ids)
+- react-mde   (React markdown editor)
+- react-split (split scrollable view)
+- showdown    (preview markdown)
 
 
-![](https://raw.githubusercontent.com/hassamulhaq/react-notes-app/main/preview.png)
+![](public/images/react-note-app__preview01.gif)
+![](public/images/react-note-app__preview02.gif)
