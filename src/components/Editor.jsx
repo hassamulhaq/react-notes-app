@@ -8,21 +8,13 @@ function loadSuggestions(text) {
         setTimeout(() => {
             const suggestions = [
                 {
-                    preview: "Andre",
-                    value: "@andre"
+                    preview: "Hassam",
+                    value: "@hassam"
                 },
                 {
-                    preview: "Angela",
-                    value: "@angela"
+                    preview: "Laravel Developer",
+                    value: "@laradev"
                 },
-                {
-                    preview: "David",
-                    value: "@david"
-                },
-                {
-                    preview: "Louise",
-                    value: "@louise"
-                }
             ].filter((i) => i.preview.toLowerCase().includes(text.toLowerCase()));
             accept(suggestions);
         }, 250);
@@ -36,7 +28,7 @@ const converter = new Showdown.Converter({
     tasklists: true,
 })
 
-function Editor() {
+function Editor(props) {
 
     //const [value, setValue] = useState("**Hello world!!!**");
     //const [selectedTab, setSelectedTab] = useState < "write" | "preview" > ("write");
@@ -48,16 +40,14 @@ function Editor() {
 
     const save = async function* (data) {
         // Promise that waits for "time" milliseconds
+
+        console.log(value)
+
         const wait = function (time) {
             return new Promise((a, r) => {
                 setTimeout(() => a(), time);
             });
         };
-
-        // Upload "data" to your server
-        // Use XMLHttpRequest.send to send a FormData object containing
-        // "data"
-        // Check this question: https://stackoverflow.com/questions/18055422/how-to-receive-php-image-data-over-copy-n-paste-javascript-with-xmlhttprequest
 
         await wait(2000);
         // yields the URL that should be inserted in the markdown
@@ -71,8 +61,8 @@ function Editor() {
     return (
         <section className="container pane editor">
             <ReactMde
-                value={value}
-                onChange={setValue}
+                value={props.currentNote.body}
+                onChange={props.updateNote}
                 selectedTab={selectedTab}
                 onTabChange={setSelectedTab}
                 generateMarkdownPreview={(markdown) =>

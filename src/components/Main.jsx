@@ -1,34 +1,95 @@
-import React, {Fragment} from "react";
+import React, {Fragment, useEffect, useState} from "react";
 import Navbar from "./Navbar";
 import Header from "./Header";
 import Split from "react-split";
 import Sidebar from "./Sidebar";
 import Editor from "./Editor.jsx";
+import {data} from "../../datajson.js";
+import {nanoid} from "nanoid";
+import {createLogger} from "vite";
 
 function Homepage() {
+
+    const [notes, setNotes] = useState([])
+
+    const [currentNoteId, setCurrentNoteId] = useState(
+        notes[0] && notes[0].id || ''
+    )
+
+    function createNewNote() {
+        const newNote = {
+            id: nanoid(),
+            body: "# Type your markdown note's title here"
+        }
+        setNotes(prevState => [...newNote, ...prevState])
+
+        // set for Editor
+        setCurrentNoteId(newNote.id)
+    }
+
+    function updateNote(text) {
+        setNotes(oldNotes => oldNotes.map(oldNote => {
+            return oldNote.id === currentNoteId
+                ? { ...oldNote, body: text }
+                : oldNote
+        }))
+    }
+
+    function findCurrentNote() {
+        return notes.find(note => {
+            return note.id === currentNoteId
+        }) || notes[0]
+    }
+
     return (
         <Fragment>
-            <Navbar />
-            <Header />
-
-            <main>
-                <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-                    <div className="px-4 py-6 sm:px-0">
-                        <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 box-content">
-                            <Split
-                                sizes={[30, 70]}
-                                direction="horizontal"
-                                gutterSize={12}
-                                minSize={200}
-                                className="split"
-                            >
-                                <Sidebar />
-                                <Editor />
-                            </Split>
-                        </div>
+            {
+                notes.length > 0
+                    ?
+                    <div className="wrapper">
+                        <Navbar/>
+                        <Header/>
+                        <main>
+                            <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                                <div className="px-4 py-6 sm:px-0">
+                                    <div className="border-4 border-dashed border-gray-200 rounded-lg h-96 box-content">
+                                        <Split
+                                            sizes={[30, 70]}
+                                            direction="horizontal"
+                                            gutterSize={12}
+                                            minSize={200}
+                                            className="split"
+                                        >
+                                            <Sidebar
+                                                notes={notes}
+                                                newNote={createNewNote}/>
+                                            {
+                                                currentNoteId
+                                                &&
+                                                notes.length > 0
+                                                &&
+                                                <Editor
+                                                    currentNote={findCurrentNote()}
+                                                    updateNote={updateNote}
+                                                />
+                                            }
+                                        </Split>
+                                    </div>
+                                </div>
+                            </div>
+                        </main>
                     </div>
-                </div>
-            </main>
+                    :
+                    <div className="no-notes">
+                        <h1>You have no notes</h1>
+                        <button
+                            className="first-note"
+                            onClick={createNewNote}
+                        >
+                            Create one now
+                        </button>
+                    </div>
+            }
         </Fragment>
     )
 }
