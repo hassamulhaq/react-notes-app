@@ -6,7 +6,6 @@ import Sidebar from "./Sidebar";
 import Editor from "./Editor.jsx";
 import {data} from "../../datajson.js";
 import {nanoid} from "nanoid";
-import {createLogger} from "vite";
 
 function Homepage() {
 
@@ -80,10 +79,10 @@ function Homepage() {
                         </main>
                     </div>
                     :
-                    <div className="no-notes">
-                        <h1>You have no notes</h1>
+                    <div className="flex flex-col justify-center items-center h-screen overflow-scroll">
+                        <h1 className="text-2xl mb-3">You have no notes</h1>
                         <button
-                            className="first-note"
+                            className="bg-indigo-500 rounded text-amber-50 hover:bg-indigo-700 px-6 py-2 cursor-pointer"
                             onClick={createNewNote}
                         >
                             Create one now
