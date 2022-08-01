@@ -28,17 +28,19 @@ function loadSuggestions(text) {
     });
 }
 
+const converter = new Showdown.Converter({
+    tables: true,
+    simplifiedAutoLink: true,
+    strikethrough: true,
+    tasklists: true,
+})
+
 function Editor() {
 
     const [value, setValue] = React.useState("**Hello world!!!**");
     const [selectedTab, setSelectedTab] = React.useState < "write" | "preview" > ("write");
 
-    const converter = new Showdown.Converter({
-        tables: true,
-        simplifiedAutoLink: true,
-        strikethrough: true,
-        tasklists: true,
-    })
+
 
     const save = async function* (data) {
         // Promise that waits for "time" milliseconds

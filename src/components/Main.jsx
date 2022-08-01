@@ -23,7 +23,7 @@ function Homepage() {
                                 className="split"
                             >
                                 <Sidebar />
-                                <div></div>
+                                <Editor />
                             </Split>
                         </div>
                     </div>
